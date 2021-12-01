@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">CS213Project5</string>
+    <string name="pepperoni">Pepperoni</string>
+    <string name="extraCheese">ExtraCheese</string>
+    <string name="bacon">Bacon</string>
+    <string name="jalapeno">Jalapeno</string>
+    <string name="onion">Onion</string>
+    <string name="chicken">Chicken</string>
+    <string name="sausage">Sausage</string>
+    <string name="peppers">Peppers</string>
+    <string name="broccoli">Broccoli</string>
+    <string name="ricotta">Ricotta</string>
+    <string name="pineapple">Pineapple</string>
+    <string name="PleaseEnterPhoneNumber">Please enter a phone number for an Order ID.</string>
+    <string name="InvalidPhoneNumberLength">Invalid 10 digit phone number for order ID.</string>
+    <string name="InvalidCharactersinID">Order ID phone number cannot have special characters.</string>
+    <string name="MaxToppings">Toppings limit reached."</string>
+    <string name="EmptyCart">Cart is Empty.</string>
+    <string name="title_activity_store_orders">StoreOrdersActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+</resources>

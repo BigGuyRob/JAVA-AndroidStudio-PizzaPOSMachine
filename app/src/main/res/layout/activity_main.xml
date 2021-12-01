@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-29dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="101dp"
+                    android:layout_height="114dp"
+                    android:text="  Order ID : " />
+
+                <EditText
+                    android:id="@+id/txtOrderID"
+                    android:layout_width="107dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Telephone #"
+                    android:inputType="textPersonName" />
+
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <RadioGroup
+                android:layout_width="196dp"
+                android:layout_height="match_parent">
+
+                <RadioButton
+                    android:id="@+id/rdbDeluxe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="enableNewPizza"
+                    android:text="Deluxe (5 Toppings)" />
+
+                <RadioButton
+                    android:id="@+id/rdbHawaiian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="enableNewPizza"
+                    android:text="Hawaiian (2 Toppings)" />
+
+                <RadioButton
+                    android:id="@+id/rdbPepperoni"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="enableNewPizza"
+                    android:text="Pepperoni (1 Topping)" />
+
+                <Button
+                    android:id="@+id/btnNewPizza"
+                    android:layout_width="181dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="GotoCustomizer"
+                    android:text="New Pizza" />
+
+                <Button
+                    android:id="@+id/btnCart"
+                    android:layout_width="181dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="GotoCart"
+                    android:text="Cart" />
+
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Orders: " />
+
+                <ListView
+                    android:id="@+id/lvOrders"
+                    android:layout_width="198dp"
+                    android:layout_height="436dp" />
+            </LinearLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="182dp">
+
+            <Button
+                android:id="@+id/btnAllOrders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View All Orders" />
+
+            <Button
+                android:id="@+id/btnCompleteOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Complete Order" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
