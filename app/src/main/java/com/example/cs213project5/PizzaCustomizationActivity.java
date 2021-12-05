@@ -86,7 +86,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity {
             size = data[2];
             pizzaType = data[1];
         }
-        this.setTitle("Pizza Customizer - Order: " + orderID);
+        this.setTitle("Pizza Customizer");
         load();
         cbSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {

@@ -27,6 +27,7 @@ public class StoreOrdersActivity extends AppCompatActivity {
         Intent intent = getIntent();
         allOrders = (ArrayList<String>) intent.getSerializableExtra(Intent.EXTRA_TEXT);
         load();
+        this.setTitle("All Store orders");
         lvAllStoreOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
