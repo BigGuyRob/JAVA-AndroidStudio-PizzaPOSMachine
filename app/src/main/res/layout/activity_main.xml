@@ -96,9 +96,11 @@
                     android:text="Orders: " />
 
                 <ListView
-                    android:id="@+id/lvOrders"
+                    android:id="@+id/lvstoreOrders"
                     android:layout_width="198dp"
-                    android:layout_height="436dp" />
+                    android:layout_height="436dp"
+                    android:choiceMode="singleChoice"
+                    android:listSelector="@color/design_default_color_secondary" />
             </LinearLayout>
 
         </TableRow>
@@ -111,12 +113,14 @@
                 android:id="@+id/btnAllOrders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="GotoStoreOrders"
                 android:text="View All Orders" />
 
             <Button
                 android:id="@+id/btnCompleteOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="completeOrder"
                 android:text="Complete Order" />
 
         </TableRow>

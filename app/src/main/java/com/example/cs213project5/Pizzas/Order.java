@@ -81,7 +81,7 @@ public class Order implements Serializable{
         for(Pizza p : order) {
             str += p.toString() + ":\n";
         }
-        str += "Price: " +this.getPrice();
+        str += "Price: " + String.format("%,.2f", this.getPrice());
         return str;
     }
 

@@ -5,15 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cs213project5.Application.Constants;
-import com.example.cs213project5.Pizzas.Order;
-import com.example.cs213project5.Pizzas.Pizza;
 
 import java.util.ArrayList;
 
@@ -25,8 +25,12 @@ public class CurrentOrderActivity extends AppCompatActivity {
     private TextView txtCurrentTotal;
     private ListView lvOrders;
     private ArrayList<String> data = new ArrayList<String>();
-    private String selectedPizza = "";
+    private Intent returnIntent = new Intent();
     private ArrayAdapter<String> arrayAdapter;
+
+    private int SelectedIndex = -1;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +43,13 @@ public class CurrentOrderActivity extends AppCompatActivity {
         }
         load();
         populate();
+        lvOrders.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                SelectedIndex = position;
+            }
+        });
     }
 
     private void load(){
@@ -47,7 +58,7 @@ public class CurrentOrderActivity extends AppCompatActivity {
         txtCurrentSubtotal2 = (TextView) findViewById(R.id.txtCurrentSubtotal2);
         txtTaxRate = (TextView)findViewById(R.id.txtTaxRate);
         txtCurrentTotal = (TextView)findViewById(R.id.txtCurrentTotal);
-        lvOrders = (ListView) findViewById(R.id.lvOrders);
+        lvOrders = (ListView) findViewById(R.id.lvstoreOrders);
     }
 
     private void populate(){
@@ -73,6 +84,28 @@ public class CurrentOrderActivity extends AppCompatActivity {
         lvOrders.setAdapter(arrayAdapter);
     }
 
+    public void removePizza(View view){
+        if(SelectedIndex != -1) {
+            Log.i("butts", String.valueOf(lvOrders.getSelectedItemPosition()));
+            returnIntent.putExtra(Intent.EXTRA_TEXT, SelectedIndex);
+            setResult(Activity.RESULT_OK, returnIntent);
+            finish();
+        }else{
+            CharSequence message = getApplicationContext().getString(R.string.EmptyCart);
+            Toast toast = Toast.makeText(getBaseContext(), message, Toast.LENGTH_SHORT);
+            //https://issuetracker.google.com/issues/36951147?pli=1
+            toast.show();
+        }
+    }
 
+    public void placeOrder(View view){
+        setResult(Activity.RESULT_FIRST_USER);
+        finish();
+    }
 
+    public void cancelOrder(View view){
+        int resultCode = Constants.canceledOrderResultCode;
+        setResult(resultCode);
+        finish();
+    }
 }
