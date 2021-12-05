@@ -37,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
     private Order focus = null;
 
+    /**
+     * Method for initializing initial conditions
+     * @param savedInstanceState the saved instance
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
         endisableNewOrder(false);
     }
 
-
+    /**
+     * Method for loading assets onto screen
+     */
     private void load(){
         txtOrderID = (EditText) findViewById(R.id.txtOrderID);
         rdbDeluxe = (RadioButton) findViewById(R.id.rdbDeluxe);
@@ -58,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
         btnCart = (Button)findViewById(R.id.btnCart);
     }
 
+    /**
+     * Method that allows the user to add an order
+     * @param view current view
+     */
     public void GotoCustomizer(View view){
         String errorMessage = validateOrder();
         if(errorMessage.equals("")){
@@ -83,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method that switches the app to the cart screen and initializes said screen
+     * @param view current view
+     */
     public void GotoCart(View view){
         Context context = getApplicationContext();
         if(focus.getOrder().size() > 0){
@@ -110,10 +124,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Flag for determining if a new pizza can be added
+     * @param view current view
+     */
     public void enableNewPizza(View view){
         btnNewPizza.setEnabled(true);
     }
 
+    /**
+     * Method for checking if order is valid
+     * @return String representation of status of validation
+     */
     private String validateOrder() {
         int orderID = 0;
         String retMes = "";
@@ -158,6 +180,12 @@ public class MainActivity extends AppCompatActivity {
         btnCart.setEnabled(status);
     }
 
+    /**
+     * Method for refocusing after a pizza is added or screen is exited
+     * @param requestCode
+     * @param resultCode
+     * @param data The Pizza
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -176,6 +204,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method for creating an individual pizza
+     * @param p toppings
+     * @return the pizza created
+     */
     private Pizza makePizza(String p){
         ArrayList<Topping> Toppings = new ArrayList<Topping>();
         String[] data = p.split(",");

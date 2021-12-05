@@ -18,15 +18,47 @@ import com.example.cs213project5.Pizzas.Pizza;
 import java.util.ArrayList;
 
 public class CurrentOrderActivity extends AppCompatActivity {
+    /**
+     * TextView for Current Order ID
+     */
     private TextView txtCurrentOrderID;
+    /**
+     * TextView for Current Subtotal
+     */
     private TextView txtCurrentSubtotal;
+    /**
+     * TextView for Order Total
+     */
     private TextView txtCurrentSubtotal2;
+    /**
+     * TextView for Tax Rate
+     */
     private TextView txtTaxRate;
+    /**
+     * TextView for Total After Tax
+     */
     private TextView txtCurrentTotal;
+    /**
+     * List View of all Orders
+     */
     private ListView lvOrders;
+    /**
+     * Array List representation of orders
+     */
     private ArrayList<String> data = new ArrayList<String>();
+    /**
+     * Order selected
+     */
     private String selectedPizza = "";
+    /**
+     * Data for List View
+     */
     private ArrayAdapter<String> arrayAdapter;
+
+    /**
+     * Method to initialize Current Order View
+     * @param savedInstanceState Saved Instance State
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +73,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
         populate();
     }
 
+    /**
+     * Method to load statistics for current order
+     */
     private void load(){
         txtCurrentOrderID = (TextView)findViewById(R.id.txtCurrentOrderID);
         txtCurrentSubtotal = (TextView) findViewById(R.id.txtCurrentSubtotal);
@@ -49,7 +84,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
         txtCurrentTotal = (TextView)findViewById(R.id.txtCurrentTotal);
         lvOrders = (ListView) findViewById(R.id.lvOrders);
     }
-
+    /**
+     * Method for calculating and displaying final total
+     */
     private void populate(){
         txtCurrentOrderID.setText(data.get(0));
         txtCurrentSubtotal.setText(data.get(1));
@@ -59,7 +96,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
         txtCurrentTotal.setText(data.get(2));
         updateLvOrders();
     }
-
+    /**
+     * Method for updating which orders are displayed, hiding removed orders
+     */
     private void updateLvOrders(){
         int dataStart = 3;
         ArrayList<String> newArr = new ArrayList<String>();
@@ -73,6 +112,13 @@ public class CurrentOrderActivity extends AppCompatActivity {
         lvOrders.setAdapter(arrayAdapter);
     }
 
+    /**
+     * Method for removing pizza from order
+     */
+    private void removePizza()
+    {
+        //updateLvOrders();
+    }
 
 
 }
