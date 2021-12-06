@@ -2,6 +2,7 @@ package com.example.cs213project5;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,16 +11,37 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.cs213project5.Application.Constants;
 import com.example.cs213project5.Pizzas.Order;
 
 import java.util.ArrayList;
-
+/**
+ * Store Orders Activity class for displaying/functionality of Store Orders
+ * @author Robert Reid, Anthony Romanushko
+ *
+ */
 public class StoreOrdersActivity extends AppCompatActivity {
+    /**
+     * List View to display Store Orders
+     */
     private ListView lvAllStoreOrders;
+    /**
+     * Return information based off of changes made in this activity
+     */
     private Intent returnIntent = new Intent();
+    /**
+     * Selected order, -1(No order) by default
+     */
     private int selectedOrder = -1;
+    /**
+     * Array List of string representation of all orders
+     */
     private ArrayList<String> allOrders = new ArrayList<String>();
 
+    /**
+     * Method to initialize Store Orders view
+     * @param savedInstanceState current instance state
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +58,9 @@ public class StoreOrdersActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method for loading current orders
+     */
     private void load(){
         lvAllStoreOrders = (ListView) findViewById(R.id.lvAllOrders);
         updateLVOrders();
@@ -61,9 +86,11 @@ public class StoreOrdersActivity extends AppCompatActivity {
      * @param  - on cancel order button click
      */
     public void cancelOrder(View view) {
-        if(selectedOrder != -1) {
+        int nullSelect = -1;
+
+        if(selectedOrder != nullSelect) {
             returnIntent.putExtra(Intent.EXTRA_TEXT, selectedOrder);
-            setResult(Activity.RESULT_OK, returnIntent);
+            setResult(Constants.cancelNone, returnIntent);
             finish();
         }
     }

@@ -23,30 +23,88 @@ import com.example.cs213project5.Pizzas.Pizza;
 import com.example.cs213project5.Pizzas.PizzaMaker;
 import com.example.cs213project5.Pizzas.StoreOrders;
 import com.example.cs213project5.Pizzas.Topping;
-import com.google.android.material.textfield.TextInputEditText;
+//import com.google.android.material.textfield.TextInputEditText;
 
-import java.lang.reflect.Array;
+//import java.lang.reflect.Array;
 import java.util.ArrayList;
-
+/**
+ * Main Activity class for displaying/functionality of Main Screen
+ * @author Robert Reid, Anthony Romanushko
+ *
+ */
 public class MainActivity extends AppCompatActivity {
+    /**
+     * Order ID Input Box
+     */
     private EditText txtOrderID;
+    /**
+     * Radio button for deluxe pizza
+     */
     private RadioButton rdbDeluxe;
+    /**
+     * Radio button for Hawaiian pizza
+     */
     private RadioButton rdbHawaiian;
+    /**
+     * Radio button for Pepperoni Pizza
+     */
     private RadioButton rdbPepperoni;
+    /**
+     * Button for accessing stored orders
+     */
     private Button btnStoreOrders;
+    /**
+     * Button for complete orders
+     */
     private Button btnComplete;
+    /**
+     * Button for new pizza
+     */
     private Button btnNewPizza;
+    /**
+     * Button to access cart
+     */
     private Button btnCart;
+    /**
+     * List view of stored orders
+     */
     private ListView lvStoreOrders;
+    /**
+     * Number of items in cart
+     */
     private int cartNum = 0;
-    private int PCRequestCode = 1;
-    private int CORequestCode = 2;
-    private int SORequestCode = 3;
+    /**
+     * Code for Pizza Customizer Activity
+     */
+    private final int PCRequestCode = 1;
+    /**
+     * Code for Current Order Activity
+     */
+    private final int CORequestCode = 2;
+    /**
+     * Code for Store Orders Activity
+     */
+    private final int SORequestCode = 3;
+    /**
+     * Selected item
+     */
     private Order focus = null;
+    /**
+     * Stored Orders
+     */
     private StoreOrders storeOrders = new StoreOrders();
-    private int selectedOrder;
-
-
+    /**
+     * Selected Order
+     */
+    private int selectedOrder = -1;
+    /**
+     * Max Size of Phone Number
+     */
+    private final int maxOIDLen = 10;
+    /**
+     * Method for initializing initial conditions
+     * @param savedInstanceState the saved instance
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +121,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * Method for loading assets onto screen
+     */
     private void load(){
         txtOrderID = (EditText) findViewById(R.id.txtOrderID);
         rdbDeluxe = (RadioButton) findViewById(R.id.rdbDeluxe);
@@ -75,7 +135,10 @@ public class MainActivity extends AppCompatActivity {
         btnCart = (Button)findViewById(R.id.btnCart);
         lvStoreOrders = (ListView)findViewById(R.id.lvstoreOrders);
     }
-
+    /**
+     * Method that brings up pizza customizer activity
+     * @param view current view
+     */
     public void GotoCustomizer(View view){
         String errorMessage = validateOrder();
         if(errorMessage.equals("")){
@@ -100,19 +163,31 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
+    /**
+     * Method that switches the app to the cart screen and initializes said screen
+     * @param view current view
+     */
     public void GotoCart(View view){
        gotoCartHelper();
     }
-
+    /**
+     * Method that switches the app to stored orders screen
+     * @param view current view
+     */
     public void GotoStoreOrders(View view){
         gotoAllOrdersHelper();
     }
-
+    /**
+     * Flag for determining if a new pizza can be added
+     * @param view current view
+     */
     public void enableNewPizza(View view){
         btnNewPizza.setEnabled(true);
     }
-
+    /**
+     * Method for checking if order is valid
+     * @return String representation of status of validation
+     */
     private String validateOrder() {
         int orderID = 0;
         String retMes = "";
@@ -122,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
             retMes = context.getString(R.string.PleaseEnterPhoneNumber);
         }else
         if(txtOrderID.getText().toString().trim().matches("[0-9]+")) {
-            if(txtOrderID.getText().toString().trim().length() != 10) {
+            if(txtOrderID.getText().toString().trim().length() != maxOIDLen) {
                 retMes = context.getString(R.string.InvalidPhoneNumberLength);
             }
         }else {
@@ -157,6 +232,12 @@ public class MainActivity extends AppCompatActivity {
         btnCart.setEnabled(status);
     }
 
+    /**
+     * Method to transfer pizza index data between activities
+     * @param requestCode desired code
+     * @param resultCode return code
+     * @param data information to transfer
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -190,17 +271,22 @@ public class MainActivity extends AppCompatActivity {
                     reFocus();
                 }
             }else if(requestCode == SORequestCode){
-                if(resultCode == Activity.RESULT_OK){
+                if(resultCode == Constants.cancelNone) {
                     int orderIndex = data.getIntExtra(Intent.EXTRA_TEXT, -1);
                     Order o = storeOrders.getOrder(orderIndex);
                     storeOrders.completeOrder(o);
                     reFocus();
                     gotoAllOrdersHelper();
                 }
+                reFocus();
             }
 
     }
+    public void onPause()
+    {
+        super.onPause();
 
+    }
     /**
      * Method for updating the list of current orders in the store orders
      */
@@ -216,6 +302,9 @@ public class MainActivity extends AppCompatActivity {
         lvStoreOrders.setAdapter(arrayAdapter);
     }
 
+    /**
+     * Method for calculating cart stats
+     */
     private void gotoCartHelper(){
         Context context = getApplicationContext();
         if(focus.getOrder().size() > 0){
@@ -244,6 +333,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Helper Method for Stored Orders screen
+     */
     private void gotoAllOrdersHelper(){
         if(storeOrders.getOrders().size() > 0){
             Intent intent = new Intent(this, StoreOrdersActivity.class);
@@ -263,10 +355,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method to parse string order into pizza representation
+     * @param p String representation of pizza
+     * @return Pizza representation of order string
+     */
     private Pizza makePizza(String p){
         ArrayList<Topping> Toppings = new ArrayList<Topping>();
         String[] data = p.split(",");
-        for(int x = 2; x < data.length; x++){
+        int dataStart = 2;
+        for(int x = dataStart; x < data.length; x++){
             Toppings.add(parsers.parseTopping(data[x]));
         }
         String size = data[1];
@@ -299,7 +397,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void completeOrder(View view) {
         Context context = getApplicationContext();
-        if(selectedOrder != -1) {
+        int nullSelect = -1;
+        if(selectedOrder != nullSelect) {
             storeOrders.completeOrder(storeOrders.getOrder(selectedOrder));
             updateLVOrders();
         }else {

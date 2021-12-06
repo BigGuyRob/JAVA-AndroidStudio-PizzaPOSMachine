@@ -28,5 +28,6 @@ public class Constants {
     public static final String pepperoni = "pepperoni";
 
     public static final int canceledOrderResultCode = 55;
+    public static final int cancelNone = 66;
 }
 
