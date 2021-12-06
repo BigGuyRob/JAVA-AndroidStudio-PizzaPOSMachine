@@ -2,6 +2,7 @@ package com.example.cs213project5;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -26,54 +27,182 @@ import com.example.cs213project5.Pizzas.Topping;
 
 import java.util.ArrayList;
 import java.util.Locale;
-
+/**
+ * Pizza Customization Activity class for displaying/functionality of Pizza Customizer
+ * @author Robert Reid, Anthony Romanushko
+ *
+ */
 public class PizzaCustomizationActivity extends AppCompatActivity {
+    /**
+     * cbSize Spinner
+     */
     private Spinner cbSize;
+    /**
+     * Pepperoni CheckBox
+     */
     private CheckBox cbPEP;
+    /**
+     * Extra Cheese CheckBox
+     */
     private CheckBox cbEXC;
+    /**
+     * Bacon CheckBox
+     */
     private CheckBox cbBAC;
+    /**
+     * Jalapeno CheckBox
+     */
     private CheckBox cbJAL;
+    /**
+     * Onion CheckBox
+     */
     private CheckBox cbONI;
+    /**
+     * Chicken CheckBox
+     */
     private CheckBox cbCHC;
+    /**
+     * Sausage CheckBox
+     */
     private CheckBox cbSAS;
+    /**
+     * Pepper CheckBox
+     */
     private CheckBox cbPPR;
+    /**
+     * Broccoli CheckBox
+     */
     private CheckBox cbBRO;
+    /**
+     * Ricotta CheckBox
+     */
     private CheckBox cbRIC;
+    /**
+     * Pineapple CheckBox
+     */
     private CheckBox cbPIN;
+    /**
+     * String representation of pizza type
+     */
     private String pizzaType;
+    /**
+     * String representation of size
+     */
     private String size;
+    /**
+     * Button ID Textview
+     */
     private TextView btnID;
+    /**
+     * Subtotal TextView
+     */
     private TextView txtSubtotal;
+    /**
+     * Pizza Image View
+     */
     private ImageView pizzaView;
+    /**
+     * Pepperoni Topping Layer
+     */
     private Drawable PEPPERONI;
+    /**
+     * Extra Cheese Topping Layer
+     */
     private Drawable EXTRACHEESE;
+    /**
+     * Bacon Topping Layer
+     */
     private Drawable BACON;
+    /**
+     * Jalapeno Topping Layer
+     */
     private Drawable JALAPENO;
+    /**
+     * Onion Topping Layer
+     */
     private Drawable ONION;
+    /**
+     * Chicken Topping Layer
+     */
     private Drawable CHICKEN;
+    /**
+     * Sausage Topping Layer
+     */
     private Drawable SAUSAGE;
+    /**
+     * Peppers Topping Layer
+     */
     private Drawable PEPPERS;
+    /**
+     * Broccoli Topping Layer
+     */
     private Drawable BROCCOLI;
+    /**
+     * Ricotta Topping Layer
+     */
     private Drawable RICOTTA;
+    /**
+     * Pineapple Topping Layer
+     */
     private Drawable PINEAPPLE;
+    /**
+     * Pizza Type Text View
+     */
     private TextView txtPizzaType;
 
+    /**
+     * ArrayList of toppings to be displayed on pizza
+     */
     private ArrayList<Drawable> layers = new ArrayList<Drawable>();
+    /**
+     * Amount of Toppings
+     */
     private int amtToppings = 0;
+    /**
+     * Data for pizza
+     */
     private String[]data;
+    /**
+     * Order ID
+     */
     private String orderID;
+    /**
+     * Toast Messaging
+     */
     private Toast toast;
+    /**
+     * Basis Pizza
+     */
     private Pizza valuePizza;
+    /**
+     * Price Scalar for Small Pizza
+     */
     private float smallScale = (float).6;
+    /**
+     * Price Scalar for Medium Pizza
+     */
     private float medScale = (float).8;
+    /**
+     * Price Scalar for Large Pizza
+     */
     private float largeScale = (float) 1;
+    /**
+     * Array of Size Choices
+     */
     private String[] arraySizes = {"small", "medium", "large"};
+    /**
+     * Intent to return
+     */
     private Intent returnIntent = new Intent();
     /**
      * toppings selected
      */
     private ArrayList<Topping> toppings = new ArrayList<Topping>();
 
+    /**
+     * Method to initialize view
+     * @param savedInstanceState Saved Instance State
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +215,7 @@ public class PizzaCustomizationActivity extends AppCompatActivity {
             size = data[2];
             pizzaType = data[1];
         }
-        this.setTitle("Pizza Customizer - Order: " + orderID);
+        this.setTitle("Pizza Customizer");
         load();
         cbSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -102,7 +231,9 @@ public class PizzaCustomizationActivity extends AppCompatActivity {
         txtPizzaType.setText(" " + pizzaType);
         populate();
     }
-
+    /**
+     * Method to load assets onto view
+     */
     private void load(){
         cbSize = (Spinner) findViewById(R.id.cbSize);
         cbPEP = (CheckBox) findViewById(R.id.cbPEP);
@@ -133,7 +264,9 @@ public class PizzaCustomizationActivity extends AppCompatActivity {
         RICOTTA = getResources().getDrawable(R.drawable.ricotta);
         PINEAPPLE = getResources().getDrawable(R.drawable.pineapple);
     }
-
+    /**
+     * Method to populate view with chosen configuration
+     */
     private void populate(){
         ArrayAdapter<String> sizeArrayAdapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, arraySizes);
@@ -289,7 +422,10 @@ public class PizzaCustomizationActivity extends AppCompatActivity {
         }
         displaySubtotal();
     }
-
+    /**
+     * Method to add pizza to order
+     * @param view View to add to
+     */
     public void addToOrder(View view){
         String pizza = "";
         pizza+= pizzaType;

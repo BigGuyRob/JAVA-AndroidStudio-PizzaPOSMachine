@@ -2,6 +2,7 @@ package com.example.cs213project5;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,21 +17,57 @@ import android.widget.Toast;
 import com.example.cs213project5.Application.Constants;
 
 import java.util.ArrayList;
-
+/**
+ * Current Order Activity Class for displaying/functionality of current order
+ * @author Robert Reid, Anthony Romanushko
+ *
+ */
 public class CurrentOrderActivity extends AppCompatActivity {
+    /**
+     * TextView for Current Order ID
+     */
     private TextView txtCurrentOrderID;
+    /**
+     * TextView for Current Subtotal
+     */
     private TextView txtCurrentSubtotal;
+    /**
+     * TextView for Order Total
+     */
     private TextView txtCurrentSubtotal2;
+    /**
+     * TextView for Tax Rate
+     */
     private TextView txtTaxRate;
+    /**
+     * TextView for Total After Tax
+     */
     private TextView txtCurrentTotal;
+    /**
+     * List View of all Orders
+     */
     private ListView lvOrders;
+    /**
+     * Array List representation of orders
+     */
     private ArrayList<String> data = new ArrayList<String>();
+    /**
+     * Return values of list changes
+     */
     private Intent returnIntent = new Intent();
+    /**
+     * Data for List View
+     */
     private ArrayAdapter<String> arrayAdapter;
-
+    /**
+     * Index of selected pizza
+     */
     private int SelectedIndex = -1;
 
-
+    /**
+     * Method to initialize Current Order View
+     * @param savedInstanceState Saved Instance State
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +89,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Method to load statistics for current order
+     */
     private void load(){
         txtCurrentOrderID = (TextView)findViewById(R.id.txtCurrentOrderID);
         txtCurrentSubtotal = (TextView) findViewById(R.id.txtCurrentSubtotal);
@@ -60,7 +100,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
         txtCurrentTotal = (TextView)findViewById(R.id.txtCurrentTotal);
         lvOrders = (ListView) findViewById(R.id.lvstoreOrders);
     }
-
+    /**
+     * Method for calculating and displaying final total
+     */
     private void populate(){
         txtCurrentOrderID.setText(data.get(0));
         txtCurrentSubtotal.setText(data.get(1));
@@ -70,7 +112,9 @@ public class CurrentOrderActivity extends AppCompatActivity {
         txtCurrentTotal.setText(data.get(2));
         updateLvOrders();
     }
-
+    /**
+     * Method for updating which orders are displayed, hiding removed orders
+     */
     private void updateLvOrders(){
         int dataStart = 3;
         ArrayList<String> newArr = new ArrayList<String>();
@@ -84,8 +128,13 @@ public class CurrentOrderActivity extends AppCompatActivity {
         lvOrders.setAdapter(arrayAdapter);
     }
 
+    /**
+     * Method for removing pizza from order
+     * @param view View to remove pizza from
+     */
     public void removePizza(View view){
-        if(SelectedIndex != -1) {
+        int nullIndex = -1;
+        if(SelectedIndex != nullIndex) {
             Log.i("butts", String.valueOf(lvOrders.getSelectedItemPosition()));
             returnIntent.putExtra(Intent.EXTRA_TEXT, SelectedIndex);
             setResult(Activity.RESULT_OK, returnIntent);
@@ -98,11 +147,19 @@ public class CurrentOrderActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method for placing order
+     * @param view View to add order to
+     */
     public void placeOrder(View view){
         setResult(Activity.RESULT_FIRST_USER);
         finish();
     }
 
+    /**
+     * Method for cancelling order
+     * @param view View to cancel order from
+     */
     public void cancelOrder(View view){
         int resultCode = Constants.canceledOrderResultCode;
         setResult(resultCode);
